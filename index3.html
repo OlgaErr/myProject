@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="assets/styles/styles.css">
+    <title>Create task</title>
+</head>
+<body>
+    <div class="menu">
+        <a href="#" class="menuBtn" onclick="showMenu()">
+            <span></span>
+        </a>
+        <nav class="menu-list">
+          <a href="index.html">Board</a>
+          <a href="index2.html">Backlog</a>
+          <a href="#">Create task</a>
+        </nav>
+    </div>
+    <main>
+        <div class="content">
+            <div class="header">
+                <h1>Create task</h1>
+            </div>
+            <hr>
+            <div class="form">
+                <form action="#" class="myForm">
+                    
+                    <label for="title">Title </label>
+                    <input type="text" name="title" id="title">
+                    
+                    <label for="type">Type</label>
+                    <select name="type" id="type">
+                        <option value="feature">feature</option>
+                        <option value="bug">bug</option>
+                    </select>
+
+                    <label for="priority">Priority</label>
+                    <select name="priority" id="priority">
+                        <option value="medium">medium</option>
+                        <option value="highest">highest</option>
+                        <option value="high">high</option>
+                        <option value="low">low</option>
+                        <option value="lowest">lowest</option>
+                    </select>
+                    
+                    <label for="estimate">Estimate</label>
+                    <input type="text" name="estimate" id="estimate">
+
+                    <label for="labels">Labels</label>
+                    <input type="text" name="labels" id="labels">
+                  
+                    <label for="reporter">Reporter</label>
+                    <input type="text" name="reporter" id="reporter">          
+                    
+
+                    <label for="description">Description</label>
+                    <textarea name="description" id="description" maxlength=”500"></textarea>
+                    <input type="button" value="Create" id="create" onclick="save()">
+                </form>
+            </div>
+        </div>      
+    
+    </main>
+    <script src="assets/script/sckipts.js"></script>
+</body>
+</html>
