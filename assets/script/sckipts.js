@@ -18,7 +18,7 @@ function save() {
         description: document.getElementById('description').value,
         id: Date.now()
     };
-    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    tasks.push(task);
-    localStorage.setItem('tasks', JSON.stringify(tasks));
+    let backlog = JSON.parse(localStorage.getItem('backlog')) || [];
+    backlog.push(task);
+    localStorage.setItem('backlog', JSON.stringify(backlog));
 }
