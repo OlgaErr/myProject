@@ -4,17 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="assets/styles/styles.css">
+    <link rel="stylesheet" href="assets/styles/main.css">
+    <link rel="stylesheet" href="assets/styles/createTask.css">
     <title>Create task</title>
 </head>
 <body>
     <div class="menu">
-        <a href="#" class="menuBtn" onclick="showMenu()">
+        <a href="#" class="menuBtn" onclick="toggleMenu()">
             <span></span>
         </a>
-        <nav class="menu-list">
-          <a href="index.html">Board</a>
-          <a href="index2.html">Backlog</a>
+        <nav class="menuList">
+          <a href="board.html">Board</a>
+          <a href="backlog.html">Backlog</a>
           <a href="#">Create task</a>
         </nav>
     </div>
@@ -22,10 +23,10 @@
         <div class="content">
             <div class="header">
                 <h1>Create task</h1>
+                <hr>
             </div>
-            <hr>
-            <div class="form">
-                <form action="#" class="myForm">
+            <div class="formWrapper">
+                <form action="#" class="form">
                     
                     <label for="title">Title </label>
                     <input type="text" name="title" id="title">
@@ -62,15 +63,15 @@
                     <label for="myId">Id</label>
                     <input type="text" name="myId" id="myId">
                     
-
                     <label for="description">Description</label>
-                    <textarea name="description" id="description" maxlength=”500"></textarea>
-                    <input type="button" value="Create" id="create" onclick="save()">
+                    <textarea name="description" id="description" maxlength="500"></textarea>
+                    <input type="button" value="Create" id="create" onclick="createTask()">
                 </form>
             </div>
         </div>      
     
     </main>
-    <script src="assets/script/sckipts.js"></script>
+    <script src="assets/script/main.js"></script>
+    <script src="assets/script/manage.js"></script>
 </body>
 </html>

@@ -1,11 +1,11 @@
 const tasks = JSON.parse(localStorage.getItem('backlog'));
-const ul = document.getElementById('backlog');
+const div = document.getElementById('backlog');
 for (let i=0; i < tasks.length; i++) {
-    const li = addTask(tasks[i]);
-    ul.appendChild(li);
+    const section = createTaskSection(tasks[i]);
+    div.appendChild(section);
 }
 
-function addTask({
+function createTaskSection({
     title,
     type,
     priority,
@@ -14,47 +14,48 @@ function addTask({
     date,
     myId
 }) {
-const li = document.createElement('section');
 
-const typeValue = selectType(type);
-li.appendChild(typeValue);
+const section = document.createElement('section');
 
-const priorityValue = selectPriority(priority);
-li.appendChild(priorityValue);
+const typeValue = selectTaskType(type);
+section.appendChild(typeValue);
+
+const priorityValue = selectTaskPriority(priority);
+section.appendChild(priorityValue);
 
 const myIdValue = document.createElement('a');
 myIdValue.classList = 'myId';
 myIdValue.insertAdjacentText('afterBegin', myId);
-li.appendChild(myIdValue);
+section.appendChild(myIdValue);
 
 const taskName = document.createElement('span');
 taskName.classList = 'taskName';
 taskName.insertAdjacentText('afterBegin', title);
-li.appendChild(taskName);
+section.appendChild(taskName);
 
 const dateValue = document.createElement('span');
 dateValue.classList = 'date';
 dateValue.insertAdjacentText('afterBegin', date);
-li.appendChild(dateValue);
+section.appendChild(dateValue);
 
 const div = document.createElement('div');
 const estimateValue = document.createElement('span');
 div.classList = 'estimate';
 estimateValue.insertAdjacentText('afterBegin', estimate);
 div.appendChild(estimateValue);
-li.appendChild(div);
+section.appendChild(div);
 
-const wraper = document.createElement('div');
+const wrapper = document.createElement('div');
 const labelValue = document.createElement('span');
-wraper.classList = 'label';
+wrapper.classList = 'label';
 labelValue.insertAdjacentText('afterBegin', label);
-wraper.appendChild(labelValue);
-li.appendChild(wraper);
+wrapper.appendChild(labelValue);
+section.appendChild(wrapper);
 
-return li;
+return section;
 }
 
-function selectType (type) {
+function selectTaskType (type) {
     const icon = document.createElement('div');
     switch(type) {
         case 'feature':
@@ -70,7 +71,7 @@ function selectType (type) {
     return icon;
 }
 
-function selectPriority(priority) {
+function selectTaskPriority(priority) {
     const letter = document.createElement('span');
     switch(priority) {
         case 'medium':

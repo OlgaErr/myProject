@@ -1,13 +1,4 @@
-
-function showMenu() {
-    let menu = document.getElementsByClassName('menu')[0];
-    let content = document.getElementsByClassName('content')[0];
-    let btn = document.getElementsByClassName('menuBtn')[0];
-    menu.classList.toggle('menu_active');
-    content.classList.toggle('content_active');
-    btn.classList.toggle('menuBtn_active');
-}
-function save() {
+function createTask() {
     const today = new Date(); 
     let task = {
         title: document.getElementById('title').value,
@@ -24,4 +15,14 @@ function save() {
     let backlog = JSON.parse(localStorage.getItem('backlog')) || [];
     backlog.push(task);
     localStorage.setItem('backlog', JSON.stringify(backlog));
+
+    clearForm()
+}
+
+function clearForm() {
+    document.getElementById('title').value = "";
+    document.getElementById('labels').value = "";
+    document.getElementById('reporter').value = "";
+    document.getElementById('myId').value = "";
+    document.getElementById('description').value = "";
 }
