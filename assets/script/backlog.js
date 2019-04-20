@@ -1,63 +1,94 @@
+const tasks = JSON.parse(localStorage.getItem('backlog'));
+const ul = document.getElementById('backlog');
+for (let i=0; i < tasks.length; i++) {
+    const li = addTask(tasks[i]);
+    ul.appendChild(li);
+}
+
 function addTask({
     title,
     type,
     priority,
     estimate,
     label,
-    reporter,
-    id
+    date,
+    myId
 }) {
-const li = document.createElement('li');
+const li = document.createElement('section');
 
-const a = document.createElement('span');
-a.classList = 'title';
-a.insertAdjacentText('afterBegin', title);
-li.appendChild(a);
+const typeValue = selectType(type);
+li.appendChild(typeValue);
 
-const b = document.createElement('span');
-b.classList = 'type';
-b.insertAdjacentText('afterBegin', type);
-li.appendChild(b);
+const priorityValue = selectPriority(priority);
+li.appendChild(priorityValue);
 
-const c = document.createElement('span');
-c.classList = 'priority';
-c.insertAdjacentText('afterBegin', priority);
-li.appendChild(c);
+const myIdValue = document.createElement('a');
+myIdValue.classList = 'myId';
+myIdValue.insertAdjacentText('afterBegin', myId);
+li.appendChild(myIdValue);
 
-const d = document.createElement('span');
-d.classList = 'estimate';
-d.insertAdjacentText('afterBegin', estimate);
-li.appendChild(d);
+const taskName = document.createElement('span');
+taskName.classList = 'taskName';
+taskName.insertAdjacentText('afterBegin', title);
+li.appendChild(taskName);
 
-const e = document.createElement('span');
-e.classList = 'label';
-e.insertAdjacentText('afterBegin', label);
-li.appendChild(e);
+const dateValue = document.createElement('span');
+dateValue.classList = 'date';
+dateValue.insertAdjacentText('afterBegin', date);
+li.appendChild(dateValue);
 
-const f = document.createElement('span');
-f.classList = 'reporter';
-f.insertAdjacentText('afterBegin', reporter);
-li.appendChild(f);
+const div = document.createElement('div');
+const estimateValue = document.createElement('span');
+div.classList = 'estimate';
+estimateValue.insertAdjacentText('afterBegin', estimate);
+div.appendChild(estimateValue);
+li.appendChild(div);
 
-const j = document.createElement('span');
-j.classList = 'id';
-j.insertAdjacentText('afterBegin', id);
-li.appendChild(j);
-
-const date = document.createElement('span');
-date.classList = 'date';
-date.insertAdjacentText('afterBegin', new Date());
-li.appendChild(date);
+const wraper = document.createElement('div');
+const labelValue = document.createElement('span');
+wraper.classList = 'label';
+labelValue.insertAdjacentText('afterBegin', label);
+wraper.appendChild(labelValue);
+li.appendChild(wraper);
 
 return li;
-
 }
 
+function selectType (type) {
+    const icon = document.createElement('div');
+    switch(type) {
+        case 'feature':
+            icon.classList = 'iconFeature';
+            break;
+        
+        case 'bug':
+            icon.classList = 'iconBug';
+            break;
+        default:
+            icon.classList = 'iconFeature';
+    }
+    return icon;
+}
 
-
-const tasks = JSON.parse(localStorage.getItem('tasks'));
-const ul = document.getElementById('backlog');
-for (let i=0; i <= tasks.length; i++) {
-    const li = addTask(tasks[i]);
-    ul.appendChild(li);
+function selectPriority(priority) {
+    const letter = document.createElement('span');
+    switch(priority) {
+        case 'medium':
+            letter.insertAdjacentText('afterBegin', "M");
+            letter.classList = 'letterM';
+            break;
+        
+        case 'high':
+            letter.insertAdjacentText('afterBegin', "H");
+            letter.classList = 'letterH';
+            break;
+        case 'low':
+            letter.insertAdjacentText('afterBegin', "L");
+            letter.classList = 'letterL';
+            break;
+        default:
+            letter.insertAdjacentText('afterBegin', "M");
+            letter.classList = 'letterM';
+    }
+    return letter;
 }

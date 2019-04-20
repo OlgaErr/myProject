@@ -6,7 +6,8 @@ body {
     position: relative;
     overflow-x: hidden;
     background-color: #f7f1e3;
-    font-family: cursive;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 1.5em;
 }
 .menu {
     position: fixed;
@@ -98,7 +99,6 @@ main {
     transform: translateX(15%);
 }
 .header {
-    height: 10vh;
     text-align: center;
 }
 
@@ -166,4 +166,114 @@ h1 {
 }
 #create:active {
     border: none;
+}
+
+/* backlog */
+#backlog section {
+    text-decoration: none;
+    border: 1px solid #000;
+    border-radius: 5px;
+    color: #000;
+    margin: 0.5em 0;
+}
+
+.iconFeature,
+.iconBug {
+    display: inline-block;
+    height: 0.8em;
+    width: 0.8em;
+    margin: 0 0.5em;
+}
+.iconFeature {
+    background-color: #218c74;
+}
+
+.iconBug {
+    background-color: #b33939;
+}
+
+.letterM,
+.letterH,
+.letterL {
+    font-weight: 900;
+    margin-right: 10px; 
+}
+
+.letterM {
+    color: #218c74;    
+}
+
+.letterH {
+    color: #b33939;
+}
+
+.letterL {
+    color: #227093;
+}
+
+.myId {
+    color: #ff793f;
+    text-decoration: underline;
+    margin-right: 0.5em;
+}
+.date {
+    float: right;
+    margin-right: 0.5em;
+}
+.label2 {
+    display: inline-block;
+    position: relative;
+    font-size: 0.5em;
+    float: right;
+    margin-right: 1em;
+    width: 1em;
+    height: 1em;
+}
+
+
+.estimate {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    background-color: #84817a;
+    margin-top: 0.1em;
+    margin-right: 0.5em;
+    position: relative;
+    float: right;
+   
+}
+.label {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin-top: 0.1em;
+    margin-right: 0.5em;
+    position: relative;
+    float: right;
+    font-size: 0.5em;
+    
+    
+}
+
+.label span {
+    position: absolute;
+    border: 1px solid #000;
+    border-radius: 5px;
+    top: 0.4em;
+    right: 0.5em;
+    white-space: nowrap;
+    padding: 0 0.3em;
+    background-color: #f7d794;    
+}
+
+.estimate span {
+    position: absolute;
+    top: -0.1em; 
+    left: 0.2em;
+}
+
+.wraper {
+    display: inline-block;
+    position: relative;
 }

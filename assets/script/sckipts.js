@@ -8,6 +8,7 @@ function showMenu() {
     btn.classList.toggle('menuBtn_active');
 }
 function save() {
+    const today = new Date(); 
     let task = {
         title: document.getElementById('title').value,
         type: document.getElementById('type').value,
@@ -15,8 +16,10 @@ function save() {
         estimate: document.getElementById('estimate').value,
         label: document.getElementById('labels').value,
         reporter: document.getElementById('reporter').value,
+        myId: document.getElementById('myId').value,
         description: document.getElementById('description').value,
-        id: Date.now()
+        id: Date.now(),
+        date: today.toLocaleDateString()
     };
     let backlog = JSON.parse(localStorage.getItem('backlog')) || [];
     backlog.push(task);
