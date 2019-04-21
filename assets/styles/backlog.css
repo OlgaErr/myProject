@@ -6,6 +6,10 @@
     margin: 0.5em 0;
 }
 
+#backlog a {
+    cursor: pointer;
+}
+
 .iconFeature,
 .iconBug {
     display: inline-block;

@@ -1,8 +1,7 @@
 .formWrapper {
     display: flex;
     justify-content: center;
-    align-content: center;
-    margin-top: 5em;
+    margin-top: 2em;
 }
 .form {
     display: grid;
@@ -19,11 +18,15 @@
 .form label {
     grid-column: labels;
     grid-row: auto;
+    font-size: 1.1em;
 }
 .form input,
+.form select,
 .form textarea {
     grid-column: controls;
     grid-row: auto;
+    font-size: 0.8em;
+    padding-left: 0.5em;
 }
 .form textarea {
     height: 5em;

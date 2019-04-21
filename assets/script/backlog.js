@@ -5,6 +5,18 @@ for (let i=0; i < tasks.length; i++) {
     div.appendChild(section);
 }
 
+const modal = document.getElementById('myModal');
+const closeButton = document.getElementsByClassName("close")[0];
+
+function openWindow() {
+  modal.style.display = 'block';
+};
+function closeWindow () {
+  modal.style.display = 'none';
+};
+
+closeButton.onclick = closeWindow;
+
 function createTaskSection({
     title,
     type,
@@ -16,42 +28,48 @@ function createTaskSection({
 }) {
 
 const section = document.createElement('section');
+const task = document.createElement('div');
+const buttonBlock = document.createElement('div');
 
 const typeValue = selectTaskType(type);
-section.appendChild(typeValue);
+task.appendChild(typeValue);
 
 const priorityValue = selectTaskPriority(priority);
-section.appendChild(priorityValue);
+task.appendChild(priorityValue);
 
 const myIdValue = document.createElement('a');
 myIdValue.classList = 'myId';
+myIdValue.onclick = openWindow;
 myIdValue.insertAdjacentText('afterBegin', myId);
-section.appendChild(myIdValue);
+task.appendChild(myIdValue);
 
 const taskName = document.createElement('span');
 taskName.classList = 'taskName';
 taskName.insertAdjacentText('afterBegin', title);
-section.appendChild(taskName);
+task.appendChild(taskName);
 
 const dateValue = document.createElement('span');
 dateValue.classList = 'date';
 dateValue.insertAdjacentText('afterBegin', date);
-section.appendChild(dateValue);
+task.appendChild(dateValue);
 
 const div = document.createElement('div');
 const estimateValue = document.createElement('span');
 div.classList = 'estimate';
 estimateValue.insertAdjacentText('afterBegin', estimate);
 div.appendChild(estimateValue);
-section.appendChild(div);
+task.appendChild(div);
 
 const wrapper = document.createElement('div');
 const labelValue = document.createElement('span');
 wrapper.classList = 'label';
 labelValue.insertAdjacentText('afterBegin', label);
 wrapper.appendChild(labelValue);
-section.appendChild(wrapper);
+task.appendChild(wrapper);
 
+
+section.appendChild(task);
+section.appendChild(buttonBlock);
 return section;
 }
 
