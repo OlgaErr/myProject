@@ -1,3 +1,4 @@
+
 const tasks = JSON.parse(localStorage.getItem('backlog'));
 const div = document.getElementById('backlog');
 for (let i=0; i < tasks.length; i++) {
@@ -7,15 +8,18 @@ for (let i=0; i < tasks.length; i++) {
 
 const modal = document.getElementById('myModal');
 const closeButton = document.getElementsByClassName("close")[0];
+closeButton.onclick = closeWindow;
 
-function openWindow() {
+function openModalWindow() {
   modal.style.display = 'block';
+  const id = this.dataset.id;
+  const task = getTaskByIdFromLocalStorage(id, tasks);
+  writeDataToTheFormFromLocalStorage(task);
 };
+
 function closeWindow () {
   modal.style.display = 'none';
 };
-
-closeButton.onclick = closeWindow;
 
 function createTaskSection({
     title,
@@ -24,52 +28,50 @@ function createTaskSection({
     estimate,
     label,
     date,
-    myId
+    myId,
+    id
 }) {
 
 const section = document.createElement('section');
-const task = document.createElement('div');
-const buttonBlock = document.createElement('div');
+section.id = id;
 
 const typeValue = selectTaskType(type);
-task.appendChild(typeValue);
+section.appendChild(typeValue);
 
 const priorityValue = selectTaskPriority(priority);
-task.appendChild(priorityValue);
+section.appendChild(priorityValue);
 
 const myIdValue = document.createElement('a');
+myIdValue.dataset.id = id;
 myIdValue.classList = 'myId';
-myIdValue.onclick = openWindow;
+myIdValue.onclick = openModalWindow;
 myIdValue.insertAdjacentText('afterBegin', myId);
-task.appendChild(myIdValue);
+section.appendChild(myIdValue);
 
 const taskName = document.createElement('span');
 taskName.classList = 'taskName';
 taskName.insertAdjacentText('afterBegin', title);
-task.appendChild(taskName);
+section.appendChild(taskName);
 
 const dateValue = document.createElement('span');
 dateValue.classList = 'date';
 dateValue.insertAdjacentText('afterBegin', date);
-task.appendChild(dateValue);
+section.appendChild(dateValue);
 
 const div = document.createElement('div');
 const estimateValue = document.createElement('span');
 div.classList = 'estimate';
 estimateValue.insertAdjacentText('afterBegin', estimate);
 div.appendChild(estimateValue);
-task.appendChild(div);
+section.appendChild(div);
 
 const wrapper = document.createElement('div');
 const labelValue = document.createElement('span');
 wrapper.classList = 'label';
 labelValue.insertAdjacentText('afterBegin', label);
 wrapper.appendChild(labelValue);
-task.appendChild(wrapper);
+section.appendChild(wrapper);
 
-
-section.appendChild(task);
-section.appendChild(buttonBlock);
 return section;
 }
 
@@ -110,4 +112,44 @@ function selectTaskPriority(priority) {
             letter.classList = 'letterM';
     }
     return letter;
+}
+
+function getTaskByIdFromLocalStorage(id, tasks) {
+    for ( var i=0; i < tasks.length; i++) {
+        if (tasks[i].id == id) {
+            return tasks[i];
+        }
+    }
+}
+
+function writeDataToTheFormFromLocalStorage(task) {
+    document.getElementById('title').value = task.title;
+    document.getElementById('type').value = task.type;
+    document.getElementById('priority').value = task.priority;
+    document.getElementById('estimate').value = task.estimate;
+    document.getElementById('labels').value = task.labels;
+    document.getElementById('myId').value = task.myId;
+    document.getElementById('description').value = task.description;
+    document.getElementById('reporter').value = task.reporter;
+    document.getElementById('date').value = task.date;
+    document.getElementById('update').value = task.update;
+    document.getElementById('id').value = task.id;
+}
+
+function deleteTaskFromLocalStorage() {
+    const id = document.getElementById('id').value;
+    const taskSection = document.getElementById(id);
+    taskSection.remove();
+    
+    function definitionIndexOfArray(id, tasks) {
+        for ( var i=0; i < tasks.length; i++) {
+            if (tasks[i].id == id) {
+                return i;
+            }
+        }
+    }
+    const result = definitionIndexOfArray(id, tasks);
+    tasks.splice(result, 1);
+    localStorage.setItem('backlog', JSON.stringify(tasks));
+    closeWindow ()
 }

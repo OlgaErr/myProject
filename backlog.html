@@ -61,16 +61,30 @@
                     </select>    
                     <label for="labels">Labels</label>
                     <input type="text" name="labels" id="labels">
-                  
-                    <label for="reporter">Reporter</label>
-                    <input type="text" name="reporter" id="reporter">
-                    
+                                      
                     <label for="myId">Id</label>
                     <input type="text" name="myId" id="myId">
                     
                     <label for="description">Description</label>
                     <textarea name="description" id="description" maxlength="500"></textarea>
-                    <input type="button" value="Create" id="create" onclick="createTask()">
+
+                    <label for="reporter">Reporter</label>
+                    <input type="text" name="reporter" id="reporter" disabled>
+
+                    <label for="createDate">Create</label>
+                    <input type="text" name="createDate" id="date" disabled>
+
+                    <label for="createDate">Update</label>
+                    <input type="text" name="createDate" id="update" disabled>
+
+                    <label for="id">ID</label>
+                    <input type="text" name="id" id="id" disabled>
+
+                    <div class="buttonBlock">
+                        <input type="button" value="Update" id="update" class="button" onclick="update()">
+                        <input type="button" value="Delete" id="delete" class="button" onclick="deleteTaskFromLocalStorage()">
+                        <input type="button" value="To work" id="toWork" class="button" onclick="toWork()">
+                    </div>
                 </form>
             </div>
         </div>  

@@ -10,7 +10,8 @@ function createTask() {
         myId: document.getElementById('myId').value,
         description: document.getElementById('description').value,
         id: Date.now(),
-        date: today.toLocaleDateString()
+        date: today.toLocaleDateString(),
+        update: ""
     };
     let backlog = JSON.parse(localStorage.getItem('backlog')) || [];
     backlog.push(task);
