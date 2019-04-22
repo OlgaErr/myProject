@@ -61,6 +61,7 @@ section.appendChild(dateValue);
 const div = document.createElement('div');
 const estimateValue = document.createElement('span');
 div.classList = 'estimate';
+estimateValue.classList = 'est';
 estimateValue.insertAdjacentText('afterBegin', estimate);
 div.appendChild(estimateValue);
 section.appendChild(div);
@@ -68,6 +69,7 @@ section.appendChild(div);
 const wrapper = document.createElement('div');
 const labelValue = document.createElement('span');
 wrapper.classList = 'label';
+labelValue.classList = 'lb';
 labelValue.insertAdjacentText('afterBegin', label);
 wrapper.appendChild(labelValue);
 section.appendChild(wrapper);
@@ -79,14 +81,14 @@ function selectTaskType (type) {
     const icon = document.createElement('div');
     switch(type) {
         case 'feature':
-            icon.classList = 'iconFeature';
+            icon.classList = 'iconFeature icon';
             break;
         
         case 'bug':
-            icon.classList = 'iconBug';
+            icon.classList = 'iconBug icon';
             break;
         default:
-            icon.classList = 'iconFeature';
+            icon.classList = 'iconFeature icon';
     }
     return icon;
 }
@@ -136,20 +138,82 @@ function writeDataToTheFormFromLocalStorage(task) {
     document.getElementById('id').value = task.id;
 }
 
-function deleteTaskFromLocalStorage() {
-    const id = document.getElementById('id').value;
-    const taskSection = document.getElementById(id);
-    taskSection.remove();
-    
-    function definitionIndexOfArray(id, tasks) {
+function definitionIndexOfArray(id, tasks) {
         for ( var i=0; i < tasks.length; i++) {
             if (tasks[i].id == id) {
                 return i;
             }
         }
     }
+
+function deleteTaskFromLocalStorage() {
+    const id = document.getElementById('id').value;
+    const taskSection = document.getElementById(id);
+    taskSection.remove();
+    
+    
     const result = definitionIndexOfArray(id, tasks);
     tasks.splice(result, 1);
     localStorage.setItem('backlog', JSON.stringify(tasks));
     closeWindow ()
 }
+
+function save() {
+    const today = new Date();  
+    const id = document.getElementById('id').value;
+    let task = {
+        title: document.getElementById('title').value,
+        type: document.getElementById('type').value,
+        priority: document.getElementById('priority').value,
+        estimate: document.getElementById('estimate').value,
+        label: document.getElementById('labels').value,
+        reporter: document.getElementById('reporter').value,
+        myId: document.getElementById('myId').value,
+        description: document.getElementById('description').value,
+        id: document.getElementById('id').value,
+        date: document.getElementById('date').value,
+        update: today.toLocaleDateString(),
+    };
+
+    console.log(task);
+
+    
+    const result = definitionIndexOfArray(id, tasks);
+    console.log(result);
+    tasks.splice(result, 1, task);
+    console.log(tasks);   
+    localStorage.setItem('backlog', JSON.stringify(tasks));
+    rewrite();
+
+    closeWindow();
+  }
+
+  function rewrite() {
+    const id = document.getElementById('id').value;
+    const taskSection = document.getElementById(id);
+    const task = getTaskByIdFromLocalStorage(id, tasks);
+    taskSection.getElementsByClassName('myId')[0].innerHTML = task.myId;
+    taskSection.getElementsByClassName('taskName')[0].innerHTML = task.title;
+    taskSection.getElementsByClassName('lb')[0].innerHTML = task.label;
+    const a = task.type;
+    function selectTaskType(a) {
+        const icon = document.createElement('div');
+        switch(type) {
+            case 'feature':
+                icon.classList = 'iconFeature icon';
+                break;
+            
+            case 'bug':
+                icon.classList = 'iconBug icon';
+                break;
+            default:
+                icon.classList = 'iconFeature icon';
+        }
+        return icon.classList;
+    }
+    const b = taskSection.getElementsByClassName('icon')[0];
+    b.classList = selectTaskType(a);
+
+    document.location.reload();
+}
+  
