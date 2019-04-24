@@ -65,8 +65,6 @@ if (title.length < 40) {
 } else {
     taskName.insertAdjacentText('afterBegin', title.substring(0, 40) + '...');
 }    
-console.log(title.substring(0, 30));
-
 
 const labelValue = document.createElement('span');
 labelValue.classList = 'label';
@@ -108,8 +106,13 @@ function selectBackgroundColor (type) {
 
 function openModalWindow() {
     document.getElementById('myModal').style.display = 'block';
+    const buttonToArchive = document.getElementById('toArchive');
     const id = this.dataset.id;
     const task = getTaskByIdFromLocalStorage(id, tasks);
+    console.log(task.status);
+    if (task.status == 'done') {
+        buttonToArchive.style.display = 'inline-block';
+    }
     writeDataToTheFormFromLocalStorage(task);
 };
 
