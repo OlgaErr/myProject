@@ -133,6 +133,7 @@ function writeDataToTheFormFromLocalStorage(task) {
     document.getElementById('date').value = task.date;
     document.getElementById('update').value = task.update;
     document.getElementById('id').value = task.id;
+    document.getElementById('status').value = task.status;
 }
 
 function definitionIndexOfArray(id, tasks) {
@@ -172,7 +173,8 @@ function save() {
         id: document.getElementById('id').value,
         date: document.getElementById('date').value,
         update: today.toLocaleDateString(),
-        dayCounter: dayCounter
+        dayCounter: dayCounter,
+        status: document.getElementById('status').value
     }
     const result = definitionIndexOfArray(id, tasks);
     tasks.splice(result, 1, task);

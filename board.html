@@ -100,6 +100,12 @@
                     <label for="id">ID</label>
                     <input type="text" name="id" id="id" disabled>
 
+                    <label for="status">Status</label>
+                    <select name="status" id="status">
+                        <option value="toDo">To do</option>
+                        <option value="inProgress">In progress</option>
+                        <option value="done">Done</option>
+                    </select>
                     <div class="buttonBlock">
                         <input type="button" value="Update" id="update" class="button" onclick="save()">
                         <input type="button" value="Back to backlog" id="backToBacklog" class="button" onclick="BackToBacklog()">
