@@ -1,10 +1,10 @@
-
-const tasks = JSON.parse(localStorage.getItem('backlog'));
+const allTasks = JSON.parse(localStorage.getItem('backlog'));
 const div = document.getElementById('backlog');
-for (let i=0; i < tasks.length; i++) {
-    const section = createTaskSection(tasks[i]);
+for (let i=0; i < allTasks.length; i++) {
+    const section = createTaskSection(allTasks[i]);
     div.appendChild(section);
 }
+
 
 const modal = document.getElementById('myModal');
 const closeButton = document.getElementsByClassName("close")[0];
@@ -13,12 +13,12 @@ closeButton.onclick = closeWindow;
 function openModalWindow() {
   modal.style.display = 'block';
   const id = this.dataset.id;
-  const task = getTaskByIdFromLocalStorage(id, tasks);
+  const task = getTaskByIdFromLocalStorage(id, allTasks);
   writeDataToTheFormFromLocalStorage(task);
 };
 
 function closeWindow () {
-  modal.style.display = 'none';
+    modal.style.display = 'none';
 };
 
 function createTaskSection({
@@ -45,7 +45,7 @@ const myIdValue = document.createElement('a');
 myIdValue.dataset.id = id;
 myIdValue.classList = 'myId';
 myIdValue.onclick = openModalWindow;
-myIdValue.insertAdjacentText('afterBegin', myId);
+myIdValue.insertAdjacentText('afterBegin', myId || "...");
 section.appendChild(myIdValue);
 
 const taskName = document.createElement('span');
@@ -116,10 +116,10 @@ function selectTaskPriority(priority) {
     return letter;
 }
 
-function getTaskByIdFromLocalStorage(id, tasks) {
-    for ( var i=0; i < tasks.length; i++) {
-        if (tasks[i].id == id) {
-            return tasks[i];
+function getTaskByIdFromLocalStorage(id, allTasks) {
+    for ( var i=0; i < allTasks.length; i++) {
+        if (allTasks[i].id == id) {
+            return allTasks[i];
         }
     }
 }
@@ -129,7 +129,7 @@ function writeDataToTheFormFromLocalStorage(task) {
     document.getElementById('type').value = task.type;
     document.getElementById('priority').value = task.priority;
     document.getElementById('estimate').value = task.estimate;
-    document.getElementById('labels').value = task.labels;
+    document.getElementById('labels').value = task.label;
     document.getElementById('myId').value = task.myId;
     document.getElementById('description').value = task.description;
     document.getElementById('reporter').value = task.reporter;
@@ -138,9 +138,9 @@ function writeDataToTheFormFromLocalStorage(task) {
     document.getElementById('id').value = task.id;
 }
 
-function definitionIndexOfArray(id, tasks) {
-        for ( var i=0; i < tasks.length; i++) {
-            if (tasks[i].id == id) {
+function definitionIndexOfArray(id, allTasks) {
+        for ( var i=0; i < allTasks.length; i++) {
+            if (allTasks[i].id == id) {
                 return i;
             }
         }
@@ -152,9 +152,9 @@ function deleteTaskFromLocalStorage() {
     taskSection.remove();
     
     
-    const result = definitionIndexOfArray(id, tasks);
-    tasks.splice(result, 1);
-    localStorage.setItem('backlog', JSON.stringify(tasks));
+    const result = definitionIndexOfArray(id, allTasks);
+    allTasks.splice(result, 1);
+    localStorage.setItem('backlog', JSON.stringify(allTasks));
     closeWindow ()
 }
 
@@ -175,45 +175,22 @@ function save() {
         update: today.toLocaleDateString(),
     };
 
-    console.log(task);
-
     
-    const result = definitionIndexOfArray(id, tasks);
-    console.log(result);
-    tasks.splice(result, 1, task);
-    console.log(tasks);   
-    localStorage.setItem('backlog', JSON.stringify(tasks));
-    rewrite();
-
+    const result = definitionIndexOfArray(id, allTasks);
+    allTasks.splice(result, 1, task);
+    localStorage.setItem('backlog', JSON.stringify(allTasks));
+    document.location.reload();
     closeWindow();
   }
 
-  function rewrite() {
+ 
+function moveToWork () {
     const id = document.getElementById('id').value;
-    const taskSection = document.getElementById(id);
-    const task = getTaskByIdFromLocalStorage(id, tasks);
-    taskSection.getElementsByClassName('myId')[0].innerHTML = task.myId;
-    taskSection.getElementsByClassName('taskName')[0].innerHTML = task.title;
-    taskSection.getElementsByClassName('lb')[0].innerHTML = task.label;
-    const a = task.type;
-    function selectTaskType(a) {
-        const icon = document.createElement('div');
-        switch(type) {
-            case 'feature':
-                icon.classList = 'iconFeature icon';
-                break;
-            
-            case 'bug':
-                icon.classList = 'iconBug icon';
-                break;
-            default:
-                icon.classList = 'iconFeature icon';
-        }
-        return icon.classList;
-    }
-    const b = taskSection.getElementsByClassName('icon')[0];
-    b.classList = selectTaskType(a);
+    const task = getTaskByIdFromLocalStorage(id, allTasks);
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    task.status = "toDo";
+    tasks.push(task);
+    localStorage.setItem('tasks', JSON.stringify(tasks));
 
-    document.location.reload();
-}
-  
+    deleteTaskFromLocalStorage();
+  }

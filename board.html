@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="assets/styles/main.css">
     <link rel="stylesheet" href="assets/styles/board.css">
+    <!-- <link rel="stylesheet" href="assets/styles/backlog.css"> -->
+    <link rel="stylesheet" href="assets/styles/form.css">
     <title>Board</title>
 </head>
 <body>
@@ -26,27 +28,87 @@
                 <hr>
             </div>
             <div class="table">
-                <div class="column">
+                <div id="toDo" class="column">
                     <div class="title">
                         <h2>To do</h2>
                     </div>
                     <div class="tasksArea"></div>
                 </div> 
-                <div class="column">
+                <div id="inProgress" class="column">
                     <div class="title">
                         <h2>In progress</h2>
                     </div>
                     <div class="tasksArea"></div>
                 </div> 
-                <div class="column">
+                <div  id="done" class="column">
                     <div class="title">
                         <h2>Done</h2>
                     </div>
                     <div class="tasksArea"></div>
                 </div> 
             </div>
-        </div>      
+        </div>
+        <div id="myModal" class="modal">
+            <div class="modalContent">
+                <span class="close">&times;</span>
+                <form action="#" class="form modalForm">
+                        
+                    <label for="title">Title </label>
+                    <input type="text" name="title" id="title">
+                    
+                    <label for="type">Type</label>
+                    <select name="type" id="type">
+                        <option value="feature">feature</option>
+                        <option value="bug">bug</option>
+                    </select>
+    
+                    <label for="priority">Priority</label>
+                    <select name="priority" id="priority">
+                        <option value="medium">medium</option>
+                        <option value="high">high</option>
+                        <option value="low">low</option>
+                    </select>
+                    
+                    <label for="estimate">Estimate</label>
+                    <select name="estimate" id="estimate">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="5">5</option>
+                        <option value="8">8</option>
+                        <option value="13">13</option>
+                    </select>    
+                    <label for="labels">Labels</label>
+                    <input type="text" name="labels" id="labels" disabled>
+                                      
+                    <label for="myId">Id</label>
+                    <input type="text" name="myId" id="myId" disabled>
+                    
+                    <label for="description">Description</label>
+                    <textarea name="description" id="description" maxlength="500" disabled></textarea>
+
+                    <label for="reporter">Reporter</label>
+                    <input type="text" name="reporter" id="reporter" disabled>
+
+                    <label for="createDate">Create</label>
+                    <input type="text" name="createDate" id="date" disabled>
+
+                    <label for="createDate">Update</label>
+                    <input type="text" name="createDate" id="update" disabled>
+
+                    <label for="id">ID</label>
+                    <input type="text" name="id" id="id" disabled>
+
+                    <div class="buttonBlock">
+                        <input type="button" value="Update" id="update" class="button" onclick="save()">
+                        <input type="button" value="Back to backlog" id="backToBacklog" class="button" onclick="BackToBacklog()">
+                    </div>
+                </form>
+            </div>
+        </div>        
     </main>
     <script src="assets/script/main.js"></script>
+    <script src="assets/script/board.js"></script>
 </body>
 </html>

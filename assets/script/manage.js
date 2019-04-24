@@ -11,13 +11,16 @@ function createTask() {
         description: document.getElementById('description').value,
         id: Date.now(),
         date: today.toLocaleDateString(),
-        update: ""
+        update: "",
+        status: ""
     };
     let backlog = JSON.parse(localStorage.getItem('backlog')) || [];
     backlog.push(task);
     localStorage.setItem('backlog', JSON.stringify(backlog));
-
-    clearForm()
+    
+    clearForm();
+    showMessage();
+    setTimeout(hideMessage, 5000);
 }
 
 function clearForm() {
@@ -26,4 +29,14 @@ function clearForm() {
     document.getElementById('reporter').value = "";
     document.getElementById('myId').value = "";
     document.getElementById('description').value = "";
+}
+
+const message = document.getElementById('message');
+
+function showMessage() {
+    message.style.display = 'block';
+}
+
+function hideMessage() {
+    message.style.display = 'none';
 }

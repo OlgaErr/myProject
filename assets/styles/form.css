@@ -56,3 +56,7 @@
 .button:active {
     border: none;
 }
+
+#backToBacklog {
+    width: 8em;
+}

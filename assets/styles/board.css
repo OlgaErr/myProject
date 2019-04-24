@@ -1,19 +1,100 @@
 .table {
-    height: 90vh;
+    height: auto;
     display: flex;
     justify-content: space-around;
 }
 
 .column {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
     border: 1px solid black;
     margin-top: 30px;
     width: 25%;
     min-width: 220px;
     border-radius: 5px;
+    height: auto;
 }
 .title {
     text-align: center;
     text-transform: uppercase;
     margin-top: 10px;
+}
+
+#toDo section {
+    display: inline-block;
+    text-decoration: none;
+    border: 1px solid #000;
+    border-radius: 5px;
+    color: #000;
+    margin: 0.5em auto;
+    height: auto;
+    width: 90%;
+    padding: 0.3em;
+}
+
+.colorFeatureBg {
+    background-color: #33d9b2;
+
+}
+
+.colorBugBg {
+    background-color: #b33939;
+}
+
+.myId {
+    text-decoration: underline;
+    margin-right: 0.1em;
+    cursor: pointer;
+}
+
+.myId:hover {
+    font-weight: bold;
+}
+
+.date {
+    display: inline-block;
+    float: right;
+    font-size: 0.8em;
+    color: rgba(0, 0, 0, 0.500);
+}
+
+.label {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    position: relative;
+    font-size: 0.6em;
+    margin-top: 0.5em;  
+}
+
+.label span {
+    border: 1px solid #000;
+    border-radius: 5px;
+    white-space: nowrap;
+    padding: 0 0.3em;
+    background-color: #f7d794;    
+}
+
+.priorityValue {
+    display: inline-block;
+    font-size: 0.7em;
+    color: rgba(0, 0, 0, 0.500);
+}
+
+.taskName {
+    display: block;
+    font-style: oblique;
+    font-size: 0.9em;
+}
+.estimate {
+    display: block;
+    font-size: 0.7em;
+    font-style: italic;
+}
+
+.userImg {
+    display: inline;
+    float: right;
+    margin-right: 0.5em;
 }

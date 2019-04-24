@@ -89,7 +89,6 @@ main {
 .menuBtn span::after {
     content: '';
     display: block;
-    transition: 0.2s;
 }
 
 .menuBtn span::before {
@@ -183,4 +182,32 @@ main {
     color: #000;
     text-decoration: none;
     cursor: pointer;
+  }
+
+  #message {
+    display: none;
+    border: 1px solid #000;
+    border-radius: 5px;
+    padding: 1.5em;
+    position: absolute;
+    right: 1em;
+    top: 13em;
+    z-index: 3;
+    background-color: #aaa69d;
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+    
+
+}
+
+@-webkit-keyframes animatetop {
+    from {right:-10em; opacity:0} 
+    to {right:1em; opacity:1}
+  }
+  
+  @keyframes animatetop {
+    from {right:-10em; opacity:0}
+    to {right:1em; opacity:1}
   }
