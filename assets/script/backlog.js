@@ -5,22 +5,6 @@ for (let i=0; i < allTasks.length; i++) {
     div.appendChild(section);
 }
 
-
-const modal = document.getElementById('myModal');
-const closeButton = document.getElementsByClassName("close")[0];
-closeButton.onclick = closeWindow;
-
-function openModalWindow() {
-  modal.style.display = 'block';
-  const id = this.dataset.id;
-  const task = getTaskByIdFromLocalStorage(id, allTasks);
-  writeDataToTheFormFromLocalStorage(task);
-};
-
-function closeWindow () {
-    modal.style.display = 'none';
-};
-
 function createTaskSection({
     title,
     type,
@@ -36,45 +20,41 @@ const section = document.createElement('section');
 section.id = id;
 
 const typeValue = selectTaskType(type);
-section.appendChild(typeValue);
 
 const priorityValue = selectTaskPriority(priority);
-section.appendChild(priorityValue);
 
 const myIdValue = document.createElement('a');
 myIdValue.dataset.id = id;
 myIdValue.classList = 'myId';
 myIdValue.onclick = openModalWindow;
 myIdValue.insertAdjacentText('afterBegin', myId || "...");
-section.appendChild(myIdValue);
 
 const taskName = document.createElement('span');
 taskName.classList = 'taskName';
 taskName.insertAdjacentText('afterBegin', title);
-section.appendChild(taskName);
 
 const dateValue = document.createElement('span');
 dateValue.classList = 'date';
 dateValue.insertAdjacentText('afterBegin', date);
-section.appendChild(dateValue);
 
-const div = document.createElement('div');
-const estimateValue = document.createElement('span');
-div.classList = 'estimate';
-estimateValue.classList = 'est';
-estimateValue.insertAdjacentText('afterBegin', estimate);
-div.appendChild(estimateValue);
-section.appendChild(div);
+const estimateV = document.createElement('span');
+estimateV.classList = 'estimate';
+estimateV.insertAdjacentText('afterBegin', estimate);
 
-const wrapper = document.createElement('div');
 const labelValue = document.createElement('span');
-wrapper.classList = 'label';
-labelValue.classList = 'lb';
+labelValue.classList = 'label';
 labelValue.insertAdjacentText('afterBegin', label);
-wrapper.appendChild(labelValue);
-section.appendChild(wrapper);
+
+section.appendChild(typeValue);
+section.appendChild(priorityValue);
+section.appendChild(myIdValue);
+section.appendChild(taskName);
+section.appendChild(dateValue);
+section.appendChild(estimateV);
+section.appendChild(labelValue);
 
 return section;
+
 }
 
 function selectTaskType (type) {
@@ -115,6 +95,13 @@ function selectTaskPriority(priority) {
     }
     return letter;
 }
+
+function openModalWindow() {
+    document.getElementById('myModal').style.display = 'block';
+    const id = this.dataset.id;
+    const task = getTaskByIdFromLocalStorage(id, allTasks);
+    writeDataToTheFormFromLocalStorage(task);
+};
 
 function getTaskByIdFromLocalStorage(id, allTasks) {
     for ( var i=0; i < allTasks.length; i++) {
@@ -183,12 +170,15 @@ function save() {
     closeWindow();
   }
 
- 
 function moveToWork () {
     const id = document.getElementById('id').value;
     const task = getTaskByIdFromLocalStorage(id, allTasks);
     let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
     task.status = "toDo";
+    const today = new Date();
+    const then = new Date(Number(id));
+    result = Math.floor((today.getTime() - then.getTime()) / (1000*60*60*24)) + ' d.';
+    task.dayCounter = result;
     tasks.push(task);
     localStorage.setItem('tasks', JSON.stringify(tasks));
 

@@ -31,12 +31,10 @@ function clearForm() {
     document.getElementById('description').value = "";
 }
 
-const message = document.getElementById('message');
-
 function showMessage() {
-    message.style.display = 'block';
+    document.getElementById('message').style.display = 'block';
 }
 
 function hideMessage() {
-    message.style.display = 'none';
+    document.getElementById('message').style.display = 'none';
 }

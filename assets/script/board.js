@@ -1,6 +1,5 @@
 const tasks = JSON.parse(localStorage.getItem('tasks'));
 
-console.log(tasks);
 const toDo = document.getElementById('toDo');
 const inProgress = document.getElementById('inProgress');
 const done = document.getElementById('done');
@@ -24,21 +23,6 @@ for (let i=0; i < tasks.length; i++) {
     }
 }
 
-const modal = document.getElementById('myModal');
-const closeButton = document.getElementsByClassName("close")[0];
-closeButton.onclick = closeWindow;
-
-function openModalWindow() {
-  modal.style.display = 'block';
-  const id = this.dataset.id;
-  const task = getTaskByIdFromLocalStorage(id, tasks);
-  writeDataToTheFormFromLocalStorage(task);
-};
-
-function closeWindow () {
-  modal.style.display = 'none';
-};
-
 function createTaskSection({
     title,
     type,
@@ -47,7 +31,8 @@ function createTaskSection({
     label,
     date,
     myId,
-    id
+    id,
+    dayCounter
 }) {
 
 const section = selectBackgroundColor(type);
@@ -58,42 +43,46 @@ myIdValue.dataset.id = id;
 myIdValue.classList = 'myId';
 myIdValue.onclick = openModalWindow;
 myIdValue.insertAdjacentText('afterBegin', myId);
-section.appendChild(myIdValue);
 
 const priorityValue = document.createElement('span');
 priorityValue.classList = 'priorityValue';
 priorityValue.insertAdjacentText('afterBegin', priority);
-section.appendChild(priorityValue);
 
 const dateValue = document.createElement('span');
 dateValue.classList = 'date';
-const then = new Date(id);
-const today = new Date();
-const dayCounter = today.getDate() - then.getDate() + ' d.';
 dateValue.insertAdjacentText('afterBegin', dayCounter);
-section.appendChild(dateValue);
 
 const estimateValue = document.createElement('span');
 estimateValue.classList = 'estimate';
 estimateValue.insertAdjacentText('afterBegin', 'estimate: ' + estimate);
-section.appendChild(estimateValue);
 
 const taskName = document.createElement('span');
 taskName.classList = 'taskName';
-taskName.insertAdjacentText('afterBegin', title);
-section.appendChild(taskName);
+const string = title.length;
 
-const wrapper = document.createElement('div');
+if (title.length < 40) {
+    taskName.insertAdjacentText('afterBegin', title);
+} else {
+    taskName.insertAdjacentText('afterBegin', title.substring(0, 40) + '...');
+}    
+console.log(title.substring(0, 30));
+
+
 const labelValue = document.createElement('span');
-wrapper.classList = 'label';
-labelValue.classList = 'lb';
+labelValue.classList = 'label';
 labelValue.insertAdjacentText('afterBegin', label);
-wrapper.appendChild(labelValue);
-section.appendChild(wrapper);
+
 
 const userImg = document.createElement("IMG");
 userImg.src = "assets/img/user.ico";
 userImg.classList = 'userImg';
+
+section.appendChild(myIdValue);
+section.appendChild(priorityValue);
+section.appendChild(dateValue);
+section.appendChild(estimateValue);
+section.appendChild(taskName);
+section.appendChild(labelValue);
 section.appendChild(userImg);
 
 return section;
@@ -115,6 +104,14 @@ function selectBackgroundColor (type) {
     }
     return color;
 }
+ 
+
+function openModalWindow() {
+    document.getElementById('myModal').style.display = 'block';
+    const id = this.dataset.id;
+    const task = getTaskByIdFromLocalStorage(id, tasks);
+    writeDataToTheFormFromLocalStorage(task);
+};
 
 function getTaskByIdFromLocalStorage(id, tasks) {
     for ( var i=0; i < tasks.length; i++) {
@@ -138,17 +135,9 @@ function writeDataToTheFormFromLocalStorage(task) {
     document.getElementById('id').value = task.id;
 }
 
-function getTaskByIdFromLocalStorage(id, tasks) {
+function definitionIndexOfArray(id, tasks) {
     for ( var i=0; i < tasks.length; i++) {
         if (tasks[i].id == id) {
-            return tasks[i];
-        }
-    }
-}
-
-function definitionIndexOfArray(id, allTasks) {
-    for ( var i=0; i < allTasks.length; i++) {
-        if (allTasks[i].id == id) {
             return i;
         }
     }
@@ -165,21 +154,12 @@ function deleteTaskFromLocalStorage() {
     closeWindow ()
 }
 
-function BackToBacklog() {
-    const a = JSON.parse(localStorage.getItem('tasks'));
-    const id = document.getElementById('id').value;
-    const task = getTaskByIdFromLocalStorage(id, a);
-    let tasks = JSON.parse(localStorage.getItem('backlog')) || [];
-    task.status = "";
-    tasks.push(task);
-    localStorage.setItem('backlog', JSON.stringify(tasks));
-
-    deleteTaskFromLocalStorage();
-}
-
 function save() {
     const today = new Date();  
     const id = document.getElementById('id').value;
+
+    const section = document.getElementById(id);
+    const dayCounter = section.getElementsByClassName('date')[0].innerText;
     let task = {
         title: document.getElementById('title').value,
         type: document.getElementById('type').value,
@@ -192,13 +172,26 @@ function save() {
         id: document.getElementById('id').value,
         date: document.getElementById('date').value,
         update: today.toLocaleDateString(),
-
-    };
-
-    
+        dayCounter: dayCounter
+    }
     const result = definitionIndexOfArray(id, tasks);
     tasks.splice(result, 1, task);
     localStorage.setItem('tasks', JSON.stringify(tasks));
     document.location.reload();
+    
     closeWindow();
   }
+
+
+
+  function BackToBacklog() {
+    const a = JSON.parse(localStorage.getItem('tasks'));
+    const id = document.getElementById('id').value;
+    const task = getTaskByIdFromLocalStorage(id, a);
+    let tasks = JSON.parse(localStorage.getItem('backlog')) || [];
+    task.status = "";
+    tasks.push(task);
+    localStorage.setItem('backlog', JSON.stringify(tasks));
+
+    deleteTaskFromLocalStorage();
+}

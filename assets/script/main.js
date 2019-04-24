@@ -6,4 +6,8 @@ function toggleMenu() {
     menu.classList.toggle('menuActive');
     content.classList.toggle('contentActive');
     btn.classList.toggle('menuBtnActive');
-}
+};
+
+function closeWindow () {
+    document.getElementById('myModal').style.display = 'none';
+};
