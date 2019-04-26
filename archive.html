@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="assets/styles/main.css">
     <link rel="stylesheet" href="assets/styles/backlog.css">
     <link rel="stylesheet" href="assets/styles/form.css">
-    <title>Backlog</title>
+    <title>Archive</title>
 </head>
 <body>
     <div class="menu">
@@ -15,43 +15,43 @@
             <span></span>
         </a>
         <nav class="menuList">
-          <a href="board.html">Board</a>
-          <a href="#">Backlog</a>
-          <a href="createTask.html">Create task</a>
-          <a href="archive.html">Archive</a>
+            <a href="board.html">Board</a>
+            <a href="backlog.html">Backlog</a>
+            <a href="createTask.html">Create task</a>
+            <a href="#">Archive</a>
         </nav>
     </div>
     <main>
         <div class="content">
             <div class="header">
-                <h1>Backlog</h1>
+                <h1>Archive</h1>
                 <hr>
             </div>
             <div id="backlog"></div>
-        </div>    
+        </div>
         <div id="myModal" class="modal">
             <div class="modalContent">
                 <span class="close" onclick = closeWindow()>&times;</span>
                 <form action="#" class="form modalForm">
                         
                     <label for="title">Title </label>
-                    <input type="text" name="title" id="title">
+                    <input type="text" name="title" id="title" disabled>
                     
                     <label for="type">Type</label>
-                    <select name="type" id="type">
+                    <select name="type" id="type" disabled>
                         <option value="feature">feature</option>
                         <option value="bug">bug</option>
                     </select>
     
                     <label for="priority">Priority</label>
-                    <select name="priority" id="priority">
+                    <select name="priority" id="priority" disabled>
                         <option value="medium">medium</option>
                         <option value="high">high</option>
                         <option value="low">low</option>
                     </select>
                     
                     <label for="estimate">Estimate</label>
-                    <select name="estimate" id="estimate">
+                    <select name="estimate" id="estimate" disabled>
                         <option value="0">0</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -61,36 +61,37 @@
                         <option value="13">13</option>
                     </select>    
                     <label for="labels">Labels</label>
-                    <input type="text" name="labels" id="labels">
-                                      
+                    <input type="text" name="labels" id="labels" disabled>
+                                        
                     <label for="myId">Id</label>
-                    <input type="text" name="myId" id="myId">
+                    <input type="text" name="myId" id="myId" disabled>
                     
                     <label for="description">Description</label>
-                    <textarea name="description" id="description" maxlength="500"></textarea>
+                    <textarea name="description" id="description" maxlength="500" disabled></textarea>
 
                     <label for="reporter">Reporter</label>
                     <input type="text" name="reporter" id="reporter" disabled>
 
                     <label for="createDate">Create</label>
                     <input type="text" name="createDate" id="date" disabled>
-
+<!-- 
                     <label for="createDate">Update</label>
-                    <input type="text" name="createDate" id="update" disabled>
+                    <input type="text" name="createDate" id="update" disabled> -->
 
-                    <label for="id">ID</label>
+                    <!-- <label for="id">ID</label> -->
                     <input type="text" name="id" id="id" disabled>
 
                     <div class="buttonBlock">
-                        <input type="button" value="Update" id="update" class="button" onclick="save()">
+                        <!-- <input type="button" value="Update" id="update" class="button" onclick="save()"> -->
                         <input type="button" value="Delete" id="delete" class="button" onclick="deleteTaskFromLocalStorage()">
-                        <input type="button" value="To work" id="toWork" class="button" onclick="moveToWork()">
+                        <!-- <input type="button" value="To work" id="toWork" class="button" onclick="moveToWork()"> -->
                     </div>
                 </form>
             </div>
         </div> 
     </main>
-    <script src="assets/script/main.js"></script>
-    <script src="assets/script/backlog.js"></script>
+    <script src="assets/script/main.js"></script> 
+    <script src="assets/script/archive.js"></script>           
+    
 </body>
 </html>

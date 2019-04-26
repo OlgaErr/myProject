@@ -211,3 +211,7 @@ main {
     from {right:-10em; opacity:0}
     to {right:1em; opacity:1}
   }
+
+  #id {
+    display: none;
+}

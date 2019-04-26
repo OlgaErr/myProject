@@ -19,6 +19,7 @@
           <a href="#">Board</a>
           <a href="backlog.html">Backlog</a>
           <a href="createTask.html">Create task</a>
+          <a href="archive.html">Archive</a>
         </nav>
     </div>
     <main>
@@ -54,10 +55,10 @@
                 <form action="#" class="form modalForm">
                         
                     <label for="title">Title </label>
-                    <input type="text" name="title" id="title">
+                    <input type="text" name="title" id="title" disabled>
                     
                     <label for="type">Type</label>
-                    <select name="type" id="type">
+                    <select name="type" id="type" disabled>
                         <option value="feature">feature</option>
                         <option value="bug">bug</option>
                     </select>
@@ -97,7 +98,7 @@
                     <label for="createDate">Update</label>
                     <input type="text" name="createDate" id="update" disabled>
 
-                    <label for="id">ID</label>
+                    <!-- <label for="id">ID</label> -->
                     <input type="text" name="id" id="id" disabled>
 
                     <label for="status">Status</label>
@@ -109,7 +110,7 @@
                     <div class="buttonBlock">
                         <input type="button" value="Update" id="update" class="button" onclick="save()">
                         <input type="button" value="Back to backlog" id="backToBacklog" class="button" onclick="BackToBacklog()">
-                        <input type="button" value="To archive" id="toArchive" class="button" onclick="toArchive()">
+                        <input type="button" value="To archive" id="toArchive" class="button" onclick="archive()">
                     </div>
                 </form>
             </div>

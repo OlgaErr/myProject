@@ -67,14 +67,7 @@
 
 .label {
     display: inline-block;
-    width: 1em;
-    height: 1em;
-    position: relative;
-    font-size: 0.6em;
-    margin-top: 0.5em;  
-}
-
-.label span {
+    font-size: 0.5em;  
     border: 1px solid #000;
     border-radius: 5px;
     white-space: nowrap;
@@ -103,4 +96,8 @@
     display: inline;
     float: right;
     margin-right: 0.5em;
+}
+
+#id {
+    display: none;
 }

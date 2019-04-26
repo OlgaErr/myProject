@@ -42,7 +42,7 @@ const myIdValue = document.createElement('a');
 myIdValue.dataset.id = id;
 myIdValue.classList = 'myId';
 myIdValue.onclick = openModalWindow;
-myIdValue.insertAdjacentText('afterBegin', myId);
+myIdValue.insertAdjacentText('afterBegin', myId || '...');
 
 const priorityValue = document.createElement('span');
 priorityValue.classList = 'priorityValue';
@@ -187,8 +187,6 @@ function save() {
     closeWindow();
   }
 
-
-
   function BackToBacklog() {
     const a = JSON.parse(localStorage.getItem('tasks'));
     const id = document.getElementById('id').value;
@@ -197,6 +195,16 @@ function save() {
     task.status = "";
     tasks.push(task);
     localStorage.setItem('backlog', JSON.stringify(tasks));
+
+    deleteTaskFromLocalStorage();
+}
+
+function archive() {
+    const id = document.getElementById('id').value;
+    const task = getTaskByIdFromLocalStorage(id, tasks);
+    let archive = JSON.parse(localStorage.getItem('archive')) || [];
+    archive.push(task);
+    localStorage.setItem('archive', JSON.stringify(tasks));
 
     deleteTaskFromLocalStorage();
 }
