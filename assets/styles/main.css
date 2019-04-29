@@ -128,7 +128,7 @@ main {
     display: none; 
     position: fixed; 
     z-index: 2; 
-    padding-top: 100px;
+    margin: auto 0;
     left: 0;
     top: 0;
     width: 100%;
@@ -137,38 +137,32 @@ main {
     background-color: rgba(0,0,0,0.4); 
   }
   
-  .modalForm {
+.modalForm {
     margin: 2em auto 1em;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
-  .modalContent {
+.modalContent {
     background-color: #f7f1e3;
     margin: auto;
     padding: 0;
     border: 5px solid #aaa69d;
     width: 710px;
+    height: auto;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-    -webkit-animation-name: animatetop;
-    -webkit-animation-duration: 0.4s;
     animation-name: animatetop;
     animation-duration: 0.4s
   }
   
-  @-webkit-keyframes animatetop {
-    from {top:-300px; opacity:0} 
-    to {top:0; opacity:1}
-  }
-  
-  @keyframes animatetop {
-    from {top:-300px; opacity:0}
+@keyframes animatetop {
+    from {top:-10em; opacity:0}
     to {top:0; opacity:1}
   }
   
   
-  .close {
+.close {
     color: #000;
     float: right;
     margin-right: 0.5em;
@@ -177,14 +171,14 @@ main {
     display: block;
   }
   
-  .close:hover,
-  .close:focus {
+.close:hover,
+.close:focus {
     color: #000;
     text-decoration: none;
     cursor: pointer;
   }
 
-  #message {
+#message {
     display: none;
     border: 1px solid #000;
     border-radius: 5px;
@@ -194,24 +188,15 @@ main {
     top: 13em;
     z-index: 3;
     background-color: #aaa69d;
-    -webkit-animation-name: animatetop;
-    -webkit-animation-duration: 0.4s;
     animation-name: animatetop;
     animation-duration: 0.4s;
-    
-
 }
 
-@-webkit-keyframes animatetop {
-    from {right:-10em; opacity:0} 
-    to {right:1em; opacity:1}
-  }
-  
-  @keyframes animatetop {
+@keyframes animatetop {
     from {right:-10em; opacity:0}
     to {right:1em; opacity:1}
-  }
+}
 
-  #id {
+#id {
     display: none;
 }
