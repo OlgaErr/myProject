@@ -63,7 +63,6 @@ function createTaskSection({
   date,
   myId,
   id,
-  dayCounter,
 }) {
   const section = selectBackgroundColor(type);
   section.id = id;
@@ -80,7 +79,10 @@ function createTaskSection({
 
   const dateValue = document.createElement('span');
   dateValue.classList = 'date';
-  dateValue.insertAdjacentText('afterBegin', dayCounter);
+  const today = new Date();
+  const then = new Date(Number(id));
+  const result = Math.floor((today.getTime() - then.getTime()) / (1000*60*60*24)) + ' d.';
+  dateValue.insertAdjacentText('afterBegin', result);
 
   const estimateValue = document.createElement('span');
   estimateValue.classList = 'estimate';
@@ -96,9 +98,12 @@ function createTaskSection({
     taskName.insertAdjacentText('afterBegin', `${title.substring(0, 40)}...`);
   }
 
-  const labelValue = document.createElement('span');
-  labelValue.classList = 'label';
-  labelValue.insertAdjacentText('afterBegin', label);
+  if (label) {
+    const labelValue = document.createElement('span');
+    labelValue.classList = 'label';
+    labelValue.insertAdjacentText('afterBegin', label);
+    section.appendChild(labelValue);
+  }
 
 
   const userImg = document.createElement('IMG');
@@ -110,7 +115,6 @@ function createTaskSection({
   section.appendChild(dateValue);
   section.appendChild(estimateValue);
   section.appendChild(taskName);
-  section.appendChild(labelValue);
   section.appendChild(userImg);
   return section;
 }
@@ -301,7 +305,13 @@ function findDroppable(event) {
   }
   return elem.closest('.droppable');
 }
-
+function updateStatus(dragObj, dropElem) {
+  const idTask = dragObj.elem.id;
+  const task = getTaskByIdFromLocalStorage(idTask, tasks);
+  task.status = dropElem.id;
+  task.update = new Date().toLocaleDateString();
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+}
 
 function finishDrag(e) {
   const dropElem = findDroppable(e);
@@ -309,9 +319,8 @@ function finishDrag(e) {
     dragObj.avatar.rollback();
   } else {
     dragObj.elem.removeAttribute('style');
-  
     dropElem.appendChild(dragObj.elem);
-
+    updateStatus(dragObj, dropElem);
   }
 }
 
@@ -322,3 +331,4 @@ document.onmouseup = function onmouseup(e) {
 
   dragObj = {};
 }
+

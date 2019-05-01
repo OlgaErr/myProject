@@ -41,9 +41,12 @@ const estimateV = document.createElement('span');
 estimateV.classList = 'estimate';
 estimateV.insertAdjacentText('afterBegin', estimate);
 
-const labelValue = document.createElement('span');
-labelValue.classList = 'label';
-labelValue.insertAdjacentText('afterBegin', label);
+if (label) {
+  const labelValue = document.createElement('span');
+  labelValue.classList = 'label';
+  labelValue.insertAdjacentText('afterBegin', label);
+  section.appendChild(labelValue);
+}
 
 section.appendChild(typeValue);
 section.appendChild(priorityValue);
@@ -51,7 +54,6 @@ section.appendChild(myIdValue);
 section.appendChild(taskName);
 section.appendChild(dateValue);
 section.appendChild(estimateV);
-section.appendChild(labelValue);
 
 return section;
 
@@ -175,10 +177,7 @@ function moveToWork () {
     const task = getTaskByIdFromLocalStorage(id, allTasks);
     let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
     task.status = "toDo";
-    const today = new Date();
-    const then = new Date(Number(id));
-    result = Math.floor((today.getTime() - then.getTime()) / (1000*60*60*24)) + ' d.';
-    task.dayCounter = result;
+    task.update = new Date().toLocaleDateString();
     tasks.push(task);
     localStorage.setItem('tasks', JSON.stringify(tasks));
 
