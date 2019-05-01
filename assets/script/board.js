@@ -29,15 +29,15 @@ function selectBackgroundColor(type) {
   const color = document.createElement('section');
   switch (type) {
     case 'feature':
-      color.classList = 'colorFeatureBg';
+      color.classList = 'task colorFeatureBg draggable';
       break;
 
     case 'bug':
-      color.classList = 'colorBugBg';
+      color.classList = 'task colorBugBg draggable';
       break;
 
     default:
-      color.classList = 'colorFeatureBg';
+      color.classList = 'task colorFeatureBg draggable';
   }
   return color;
 }
@@ -48,7 +48,6 @@ function openModalWindow() {
   const buttonToArchive = document.getElementById('toArchive');
   const { id } = this.dataset;
   const task = getTaskByIdFromLocalStorage(id, tasks);
-  console.log(task.status);
   if (task.status == 'done') {
     buttonToArchive.style.display = 'inline-block';
   }
@@ -200,10 +199,126 @@ function BackToBacklog() {
 function archive() {
   const id = document.getElementById('id').value;
   const task = getTaskByIdFromLocalStorage(id, tasks);
-  const archive = JSON.parse(localStorage.getItem('archive')) || [];
-  archive.push(task);
+  const archiveData = JSON.parse(localStorage.getItem('archive')) || [];
+  archiveData.push(task);
   localStorage.setItem('archive', JSON.stringify(tasks));
   deleteTaskFromLocalStorage();
 }
 
 // move tascks between column
+let dragObj = {};
+let self = this;
+document.onmousedown = function onmousedown(e) {
+  if (e.which !== 1) return;
+  const elem = e.target.closest('.draggable');
+  if (!elem) return;
+
+  const { width } = getComputedStyle(elem);
+  elem.style.width = width;
+
+  dragObj.elem = elem;
+  dragObj.downX = e.pageX;
+  dragObj.downY = e.pageY;
+};
+
+function createAvatar() {
+  const avatar = dragObj.elem;
+  avatar.style.pointerEvents = 'none';
+  const old = {
+    parent: avatar.parentNode,
+    nextSibling: avatar.nextSibling,
+    position: avatar.position || '',
+    left: avatar.left || '',
+    top: avatar.top || '',
+    zIndex: avatar.zIndex || ''
+  };
+
+  avatar.rollback = function rollback() {
+    old.parent.insertBefore(avatar, old.nextSibling);
+    avatar.style.position = old.position;
+    avatar.style.left = old.left;
+    avatar.style.top = old.top;
+    avatar.style.zIndex = old.zIndex;
+    dragObj = {};
+  };
+
+  return avatar;
+}
+
+function startDrag() {
+  const { avatar } = dragObj;
+
+  document.body.appendChild(avatar);
+  avatar.style.zIndex = 9999;
+  avatar.style.position = 'absolute';
+}
+
+function getCoords(elem) { //разница box.top и dragObj.avatar.top!!!!!!!!!!!!!!!!
+  const box = elem.getBoundingClientRect();
+
+  return {
+    top: box.top + pageYOffset,
+    left: box.left + pageXOffset
+  };
+}
+
+document.onmousemove = function onmousemove(e) {
+
+  if (!dragObj.elem) return;
+
+  if (!dragObj.avatar) {
+    const moveX = e.pageX - dragObj.downX;
+    const moveY = e.pageY - dragObj.downY;
+    if (Math.abs(moveX) < 3 && Math.abs(moveY) < 3) {
+      return;
+    }
+    
+    dragObj.avatar = createAvatar();
+    if (!dragObj.avatar) {
+      dragObj = {};
+      return;
+    }
+
+    const coords = getCoords(dragObj.avatar);
+    dragObj.shiftX = dragObj.downX - coords.left;
+    dragObj.shiftY = dragObj.downY - coords.top;
+
+    startDrag(e);
+  }
+
+  dragObj.avatar.style.left = `${e.pageX - dragObj.shiftX}px`;
+  dragObj.avatar.style.top = `${e.pageY - dragObj.shiftY}px`;
+
+  return false;
+};
+
+function findDroppable(event) {
+
+  const elem = document.elementFromPoint(event.clientX, event.clientY);
+
+  if (elem == null) {
+    return null;
+  }
+  return elem.closest('.droppable');
+}
+
+
+function finishDrag(e) {
+  const dropElem = findDroppable(e);
+  if (!dropElem) {
+    dragObj.avatar.rollback();
+  } else {
+    dragObj.elem.removeAttribute('style');
+  
+    dropElem.appendChild(dragObj.elem);
+
+  }
+}
+
+document.onmouseup = function onmouseup(e) {
+  if (dragObj.avatar) {
+    finishDrag(e);
+  }
+
+  dragObj = {};
+}

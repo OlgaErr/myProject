@@ -1,4 +1,4 @@
-.table {
+#table {
     height: auto;
     display: flex;
     justify-content: space-around;
@@ -14,6 +14,7 @@
     min-width: 220px;
     border-radius: 5px;
     height: auto;
+    min-height: 8em;
 }
 .title {
     text-align: center;
@@ -21,9 +22,8 @@
     margin-top: 10px;
 }
 
-#toDo section,
-#inProgress section,
-#done section {
+.task {
+    
     display: inline-block;
     text-decoration: none;
     border: 1px solid #000;
@@ -55,7 +55,7 @@
 }
 
 .myId:hover {
-    font-weight: bold;
+    color: #f7f1e3;
 }
 
 .date {
