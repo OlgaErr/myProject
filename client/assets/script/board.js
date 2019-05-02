@@ -1,29 +1,11 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-shadow */
+/* eslint-disable no-plusplus */
 /* eslint-disable no-undef */
 const tasks = JSON.parse(localStorage.getItem('tasks'));
-
 const toDo = document.getElementById('toDo');
 const inProgress = document.getElementById('inProgress');
 const done = document.getElementById('done');
-
-for (let i = 0; i < tasks.length; i++) {
-  const section = createTaskSection(tasks[i]);
-  switch (tasks[i].status) {
-    case 'toDo':
-      toDo.appendChild(section);
-      break;
-
-    case 'inProgress':
-      inProgress.appendChild(section);
-      break;
-    case 'done':
-      done.appendChild(section);
-      break;
-
-    default:
-      toDo.appendChild(section);
-  }
-}
-
 
 function selectBackgroundColor(type) {
   const color = document.createElement('section');
@@ -41,7 +23,30 @@ function selectBackgroundColor(type) {
   }
   return color;
 }
+function getTaskByIdFromLocalStorage(id, tasks) {
+  let result;
+  for (let i = 0; i < tasks.length; i++) {
+    if (tasks[i].id === id) {
+      result = tasks[i];
+    }
+  }
+  return result;
+}
 
+function writeDataToTheFormFromLocalStorage(task) {
+  document.getElementById('title').value = task.title;
+  document.getElementById('type').value = task.type;
+  document.getElementById('priority').value = task.priority;
+  document.getElementById('estimate').value = task.estimate;
+  document.getElementById('labels').value = task.label;
+  document.getElementById('myId').value = task.myId;
+  document.getElementById('description').value = task.description;
+  document.getElementById('reporter').value = task.reporter;
+  document.getElementById('date').value = task.date;
+  document.getElementById('update').value = task.update;
+  document.getElementById('id').value = task.id;
+  document.getElementById('status').value = task.status;
+}
 
 function openModalWindow() {
   document.getElementById('myModal').style.display = 'block';
@@ -60,7 +65,6 @@ function createTaskSection({
   priority,
   estimate,
   label,
-  date,
   myId,
   id,
 }) {
@@ -118,35 +122,15 @@ function createTaskSection({
   section.appendChild(userImg);
   return section;
 }
-function getTaskByIdFromLocalStorage(id, tasks) {
-  for (let i = 0; i < tasks.length; i++) {
-    if (tasks[i].id == id) {
-      return tasks[i];
-    }
-  }
-}
-
-function writeDataToTheFormFromLocalStorage(task) {
-  document.getElementById('title').value = task.title;
-  document.getElementById('type').value = task.type;
-  document.getElementById('priority').value = task.priority;
-  document.getElementById('estimate').value = task.estimate;
-  document.getElementById('labels').value = task.label;
-  document.getElementById('myId').value = task.myId;
-  document.getElementById('description').value = task.description;
-  document.getElementById('reporter').value = task.reporter;
-  document.getElementById('date').value = task.date;
-  document.getElementById('update').value = task.update;
-  document.getElementById('id').value = task.id;
-  document.getElementById('status').value = task.status;
-}
 
 function definitionIndexOfArray(id, tasks) {
+  let result;
   for (let i = 0; i < tasks.length; i++) {
-    if (tasks[i].id == id) {
-      return i;
+    if (tasks[i].id === id) {
+      result = i;
     }
   }
+  return result;
 }
 
 function deleteTaskFromLocalStorage() {
@@ -205,13 +189,13 @@ function archive() {
   const task = getTaskByIdFromLocalStorage(id, tasks);
   const archiveData = JSON.parse(localStorage.getItem('archive')) || [];
   archiveData.push(task);
-  localStorage.setItem('archive', JSON.stringify(tasks));
+  localStorage.setItem('archive', JSON.stringify(archiveData));
   deleteTaskFromLocalStorage();
 }
 
 // move tascks between column
 let dragObj = {};
-let self = this;
+const self = this;
 document.onmousedown = function onmousedown(e) {
   if (e.which !== 1) return;
   const elem = e.target.closest('.draggable');
@@ -333,3 +317,21 @@ document.onmouseup = function onmouseup(e) {
   dragObj = {};
 }
 
+for (let i = 0; i < tasks.length; i++) {
+  const section = createTaskSection(tasks[i]);
+  switch (tasks[i].status) {
+    case 'toDo':
+      toDo.appendChild(section);
+      break;
+
+    case 'inProgress':
+      inProgress.appendChild(section);
+      break;
+    case 'done':
+      done.appendChild(section);
+      break;
+
+    default:
+      toDo.appendChild(section);
+  }
+}
