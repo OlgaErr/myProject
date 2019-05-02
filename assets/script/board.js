@@ -81,7 +81,7 @@ function createTaskSection({
   dateValue.classList = 'date';
   const today = new Date();
   const then = new Date(Number(id));
-  const result = Math.floor((today.getTime() - then.getTime()) / (1000*60*60*24)) + ' d.';
+  const result = Math.round((today.getTime() - then.getTime()) / (1000*60*60*24)) + ' d.';
   dateValue.insertAdjacentText('afterBegin', result);
 
   const estimateValue = document.createElement('span');
@@ -98,14 +98,6 @@ function createTaskSection({
     taskName.insertAdjacentText('afterBegin', `${title.substring(0, 40)}...`);
   }
 
-  if (label) {
-    const labelValue = document.createElement('span');
-    labelValue.classList = 'label';
-    labelValue.insertAdjacentText('afterBegin', label);
-    section.appendChild(labelValue);
-  }
-
-
   const userImg = document.createElement('IMG');
   userImg.src = 'assets/img/user.ico';
   userImg.classList = 'userImg';
@@ -115,6 +107,14 @@ function createTaskSection({
   section.appendChild(dateValue);
   section.appendChild(estimateValue);
   section.appendChild(taskName);
+ 
+  if (label) {
+    const labelValue = document.createElement('span');
+    labelValue.classList = 'label';
+    labelValue.insertAdjacentText('afterBegin', label);
+    section.appendChild(labelValue);
+  }
+
   section.appendChild(userImg);
   return section;
 }
@@ -243,7 +243,7 @@ function createAvatar() {
     avatar.style.left = old.left;
     avatar.style.top = old.top;
     avatar.style.zIndex = old.zIndex;
-    dragObj = {};
+    avatar.style.pointerEvents = 'auto';
   };
 
   return avatar;
@@ -314,6 +314,7 @@ function updateStatus(dragObj, dropElem) {
 }
 
 function finishDrag(e) {
+
   const dropElem = findDroppable(e);
   if (!dropElem) {
     dragObj.avatar.rollback();
