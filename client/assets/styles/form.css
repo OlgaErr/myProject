@@ -5,30 +5,14 @@
 }
 .form {
     display: grid;
-    grid-template-columns: [labels] auto [controls] 1fr;
     grid-auto-flow: row;
-    grid-gap: 0.8em;
-    padding: 1.2em;
     border: 1px solid #000;
     border-radius: 5px;
     margin-top: 30px auto;
     width: 80%;
     font-size: 16pt;
 }
-.form label {
-    grid-column: labels;
-    grid-row: auto;
-    font-size: 1.1em;
-}
 
-.form input,
-.form select,
-.form textarea {
-    grid-column: controls;
-    grid-row: auto;
-    font-size: 0.8em;
-    padding-left: 0.5em;
-}
 .form div {
     grid-column: controls;
     grid-row: auto;
@@ -60,3 +44,81 @@
 #backToBacklog {
     width: 8em;
 }
+
+/* media */
+
+@media only screen 
+    and (min-width : 1024px) {
+        .form {
+            grid-template-columns: [labels] auto [controls] 1fr;
+            grid-gap: 0.8em;
+            padding: 1.2em;
+        }
+        .form label {
+            grid-column: labels;
+            grid-row: auto;
+            font-size: 1.1em;
+        }
+        .form input,
+        .form select,
+        .form textarea {
+            grid-column: controls;
+            grid-row: auto;
+            font-size: 0.8em;
+            padding-left: 0.5em;
+        }
+}
+
+@media only screen 
+    and (min-width : 768px) 
+    and (max-width : 1024px) {
+        .form {
+            grid-template-columns: [labels] auto [controls] 1fr;
+            grid-gap: 0.8em;
+            padding: 1.2em;
+        }
+        .form label {
+            grid-column: labels;
+            grid-row: auto;
+            font-size: 1.1em;
+        }
+        .form input,
+        .form select,
+        .form textarea {
+            grid-column: controls;
+            grid-row: auto;
+            font-size: 0.8em;
+            padding-left: 0.5em;
+        }
+    }
+
+@media only screen 
+and (min-width : 480px) 
+and (max-width : 767px) {
+    .form {
+        grid-template-columns: 1fr;
+        padding: 0.5em;
+        width: 100%;
+        row-gap: 0.3em;
+        row-gap: 0.3em;
+    }
+    .formWrapper {
+        width: 100%;
+        margin-top: 0;
+    }
+}
+
+@media only screen 
+    and (min-width : 320px) 
+    and (max-width : 480px) {
+        .form {
+            grid-template-columns: 1fr;
+            padding: 0.5em;
+            width: 100%;
+            row-gap: 0.3em;
+        }
+        .formWrapper {
+            width: 100%;
+            margin-top: 0;
+        }
+    }

@@ -24,13 +24,11 @@ function selectBackgroundColor(type) {
   return color;
 }
 function getTaskByIdFromLocalStorage(id, tasks) {
-  let result;
   for (let i = 0; i < tasks.length; i++) {
-    if (tasks[i].id === id) {
-      result = tasks[i];
+    if (tasks[i].id == id) {
+      return tasks[i];
     }
   }
-  return result;
 }
 
 function writeDataToTheFormFromLocalStorage(task) {
