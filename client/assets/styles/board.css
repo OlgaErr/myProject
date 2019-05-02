@@ -10,7 +10,6 @@
     flex-direction: column;
     border: 1px solid black;
     margin-top: 30px;
-    width: 25%;
     min-width: 220px;
     border-radius: 5px;
     height: auto;
@@ -23,7 +22,6 @@
 }
 
 .task {
-    
     display: inline-block;
     text-decoration: none;
     border: 1px solid #000;
@@ -100,4 +98,54 @@
 
 #id {
     display: none;
+}
+
+/* media */
+
+@media only screen 
+and (min-width : 1024px) {
+    #table {
+        justify-content: space-around;
+    }
+    .column {
+        width: 30%;
+    }
+}
+
+@media only screen 
+and (min-width : 768px) 
+and (max-width : 1023px) {
+    .column {
+        width: 30%;
+    }
+}
+
+@media only screen 
+and (min-width : 480px) 
+and (max-width : 767px) {
+    #table {
+        flex-direction: column;
+        align-items: center;
+    }
+    .content {
+        width: 100%;
+    }
+    .column {
+        width: 80%;
+    }
+}
+
+@media only screen 
+and (min-width : 320px) 
+and (max-width : 479px) {
+    #table {
+        flex-direction: column;
+        align-items: center;
+    }
+    .content {
+        width: 100%;
+    }
+    .column {
+        width: 90%;
+    }
 }

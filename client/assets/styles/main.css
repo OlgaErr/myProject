@@ -223,15 +223,16 @@ main {
         .menuActive {
             left: 0;
         }
+       
     }
 
 @media only screen 
 and (min-width : 480px) 
 and (max-width : 768px) {
     .menu {
-        width: 25%;
+        width: 35%;
         height: 100vh;
-        left: -25%;
+        left: -35%;
     }
     .menuActive {
         left: 0;
@@ -259,5 +260,4 @@ and (max-width : 768px) {
         .contentActive {
             transform: translateX(0%);
         }
-
     }
