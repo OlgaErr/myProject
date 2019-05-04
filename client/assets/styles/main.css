@@ -173,25 +173,6 @@ main {
     cursor: pointer;
   }
 
-#message {
-    display: none;
-    border: 1px solid #000;
-    border-radius: 5px;
-    padding: 1.5em;
-    position: absolute;
-    right: 1em;
-    top: 13em;
-    z-index: 3;
-    background-color: #aaa69d;
-    animation-name: animatetop;
-    animation-duration: 0.4s;
-}
-
-@keyframes animatetop {
-    from {right:-10em; opacity:0}
-    to {right:1em; opacity:1}
-}
-
 #id {
     display: none;
 }

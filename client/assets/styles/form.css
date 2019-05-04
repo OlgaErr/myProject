@@ -34,7 +34,6 @@
     border-radius: 5px;
     color: #000;
     cursor: pointer;
-    font-family: cursive;
     text-align: center;
 }
 .button:active {
@@ -43,6 +42,19 @@
 
 #backToBacklog {
     width: 8em;
+}
+
+#message {
+    display: none;
+    border: 1px solid #000;
+    border-radius: 5px;
+    padding: 1.5em;
+    position: absolute;
+    top: 13em;
+    z-index: 3;
+    background-color: #aaa69d;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
 }
 
 /* media */
@@ -67,6 +79,13 @@
             font-size: 0.8em;
             padding-left: 0.5em;
         }
+        #message {
+            right: 1em;
+        }
+        @keyframes animatetop {
+            from {right:-10em; opacity:0}
+            to {right:1em; opacity:1}
+        }
 }
 
 @media only screen 
@@ -90,6 +109,13 @@
             font-size: 0.8em;
             padding-left: 0.5em;
         }
+        #message {
+            right: 1em;
+        }
+        @keyframes animatetop {
+            from {right:-10em; opacity:0}
+            to {right:1em; opacity:1}
+        }
     }
 
 @media only screen 
@@ -106,6 +132,16 @@ and (max-width : 767px) {
         width: 100%;
         margin-top: 0;
     }
+    .button {
+        margin-top: 0.3em;
+    }
+    #message {
+        right: 1em;
+    }
+    @keyframes animatetop {
+        from {right:-10em; opacity:0}
+        to {right:1em; opacity:1}
+    }
 }
 
 @media only screen 
@@ -120,5 +156,15 @@ and (max-width : 767px) {
         .formWrapper {
             width: 100%;
             margin-top: 0;
+        }
+        .button {
+            margin-top: 0.3em;
+        }
+        #message {
+            right: 1.3em;
+        }
+        @keyframes animatetop {
+            from {right:-10em; opacity:0}
+            to {right: 1.3em; opacity:1}
         }
     }

@@ -166,7 +166,6 @@ function save() {
     update: today.toLocaleDateString(),
   };
 
-
   const result = definitionIndexOfArray(id, allTasks);
   allTasks.splice(result, 1, task);
   localStorage.setItem('backlog', JSON.stringify(allTasks));
