@@ -15,46 +15,51 @@ function createTaskSection({
   myId,
   id,
 }) {
-
   const section = document.createElement('section');
   section.id = id;
 
+  const leftBlock = document.createElement('div');
   const typeValue = selectTaskType(type);
 
   const priorityValue = selectTaskPriority(priority);
+  leftBlock.appendChild(priorityValue);
 
   const myIdValue = document.createElement('a');
   myIdValue.dataset.id = id;
   myIdValue.classList = 'myId';
   myIdValue.onclick = openModalWindow;
   myIdValue.insertAdjacentText('afterBegin', myId || '...');
+  leftBlock.appendChild(myIdValue);
 
   const taskName = document.createElement('span');
   taskName.classList = 'taskName';
   taskName.insertAdjacentText('afterBegin', title);
+  leftBlock.appendChild(taskName);
+
+  const rightBlock = document.createElement('div');
+  rightBlock.classList = 'rightBlock';
+
+  if (label) {
+    const labelValue = document.createElement('div');
+    labelValue.classList = 'label';
+    labelValue.insertAdjacentText('afterBegin', label);
+    rightBlock.appendChild(labelValue);
+  }
 
   const dateValue = document.createElement('span');
   dateValue.classList = 'date';
   dateValue.insertAdjacentText('afterBegin', date);
+  rightBlock.appendChild(dateValue);
 
   const estimateV = document.createElement('span');
   estimateV.classList = 'estimate';
   estimateV.insertAdjacentText('afterBegin', estimate);
+  rightBlock.appendChild(estimateV);
 
-  const labelValue = document.createElement('span');
-  labelValue.classList = 'label';
-  labelValue.insertAdjacentText('afterBegin', label);
-
-  section.appendChild(typeValue);
-  section.appendChild(priorityValue);
-  section.appendChild(myIdValue);
-  section.appendChild(taskName);
-  section.appendChild(dateValue);
-  section.appendChild(estimateV);
-  section.appendChild(labelValue);
+  section.appendChild(leftBlock);
+  section.appendChild(rightBlock);
 
   return section;
-
 }
 
 function selectTaskType(type) {
@@ -121,7 +126,7 @@ function writeDataToTheFormFromLocalStorage(task) {
   document.getElementById('description').value = task.description;
   document.getElementById('reporter').value = task.reporter;
   document.getElementById('date').value = task.date;
-  // document.getElementById('update').value = task.update;
+  document.getElementById('update').value = task.update;
   document.getElementById('id').value = task.id;
 }
 
@@ -130,6 +135,20 @@ function deleteTaskFromLocalStorage() {
   const taskSection = document.getElementById(id);
   taskSection.remove();
 
+  closeWindow();
+}
+
+function taskDelete() {
+  const result = confirm("Do you want to delete the task?");
+  if (result) {
+    deleteTaskFromLocalStorage();
+  }
+}
+
+function deleteTaskFromLocalStorage() {
+  const id = document.getElementById('id').value;
+  const taskSection = document.getElementById(id);
+  taskSection.remove();
 
   const result = definitionIndexOfArray(id, archive);
   archive.splice(result, 1);
@@ -139,7 +158,7 @@ function deleteTaskFromLocalStorage() {
 
 function definitionIndexOfArray(id, archive) {
   for (let i = 0; i < archive.length; i++) {
-    if (allarchiveTasks[i].id == id) {
+    if (archive[i].id == id) {
       return i;
     }
   }

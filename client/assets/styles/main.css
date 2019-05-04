@@ -19,7 +19,9 @@ h1 {
 h2 {
     font-size: 1em;
 }
-
+.header {
+    margin-bottom: 30px;
+}
 main {
     width: 90%;
     margin: 0 auto;
@@ -147,13 +149,20 @@ main {
 }
 .modalForm div input {
     padding-left: 0;
+    width: auto;
+    min-width: 5em;
     margin: 0.5em;
+    padding: 0 0.5em
 }
 .modalForm input,
 .modalForm select,
 .modalForm textarea {
     margin: 0.2em 0.8em;
     padding-left: 0.5em; 
+}
+.modalForm textarea {
+    resize: none;
+    height: 5em;
 }
 
 .modalContent {
@@ -283,12 +292,6 @@ and (max-width : 768px) {
         .contentActive {
             transform: translateX(0%);
         }
-        /* .modalForm {
-            grid-template-columns: 1fr;
-            padding: 0.5em;
-            width: 100%;
-            row-gap: 0.3em;
-        } */
         .modalContent {
             width: 90%;
         }

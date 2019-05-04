@@ -18,7 +18,7 @@
           <a href="#">Board</a>
           <a href="backlog.html">Backlog</a>
           <a href="createTask.html">Create task</a>
-          <a href="archive.html">Archive</a>
+          <a href="history.html">History</a>
         </nav>
     </div>
     <main>
@@ -51,7 +51,7 @@
                 <form action="#" class="modalForm">
                         
                     <label for="title">Title </label>
-                    <input type="text" name="title" id="title" disabled>
+                    <input type="text" name="title" id="title">
                     
                     <label for="type">Type</label>
                     <select name="type" id="type" disabled>
@@ -83,16 +83,16 @@
                     <input type="text" name="myId" id="myId" disabled>
                     
                     <label for="description">Description</label>
-                    <textarea name="description" id="description" maxlength="500" disabled></textarea>
+                    <textarea name="description" id="description" maxlength="500"></textarea>
 
                     <label for="reporter">Reporter</label>
                     <input type="text" name="reporter" id="reporter" disabled>
 
-                    <label for="createDate">Create</label>
+                    <label for="createDate">Created</label>
                     <input type="text" name="createDate" id="date" disabled>
 
-                    <label for="createDate">Update</label>
-                    <input type="text" name="createDate" id="update" disabled>
+                    <label for="updated">Updated</label>
+                    <input type="text" name="updated" id="update" disabled>
 
                     <!-- <label for="id">ID</label> -->
                     <input type="text" name="id" id="id" disabled>
@@ -104,9 +104,9 @@
                         <option value="done">Done</option>
                     </select>
                     <div class="buttonBlock">
-                        <input type="button" value="Update" id="update" class="button" onclick="save()">
                         <input type="button" value="Back to backlog" id="backToBacklog" class="button" onclick="BackToBacklog()">
-                        <input type="button" value="To archive" id="toArchive" class="button" onclick="archive()">
+                        <input type="button" value="Update" id="update" class="button" onclick="save()">
+                        <input type="button" value="To history" id="toArchive" class="button" onclick="archive()">
                     </div>
                 </form>
             </div>

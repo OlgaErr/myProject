@@ -53,6 +53,8 @@ function openModalWindow() {
   const task = getTaskByIdFromLocalStorage(id, tasks);
   if (task.status == 'done') {
     buttonToArchive.style.display = 'inline-block';
+  } else {
+    buttonToArchive.style.display = 'none';
   }
   writeDataToTheFormFromLocalStorage(task);
 }
@@ -185,6 +187,7 @@ function BackToBacklog() {
 function archive() {
   const id = document.getElementById('id').value;
   const task = getTaskByIdFromLocalStorage(id, tasks);
+  task.update = new Date().toLocaleDateString();
   const archiveData = JSON.parse(localStorage.getItem('archive')) || [];
   archiveData.push(task);
   localStorage.setItem('archive', JSON.stringify(archiveData));

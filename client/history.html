@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="assets/styles/main.css">
     <link rel="stylesheet" href="assets/styles/backlog.css">
     <link rel="stylesheet" href="assets/styles/form.css">
-    <title>Archive</title>
+    <title>History</title>
 </head>
 <body>
     <div class="menu">
@@ -18,13 +18,13 @@
             <a href="board.html">Board</a>
             <a href="backlog.html">Backlog</a>
             <a href="createTask.html">Create task</a>
-            <a href="#">Archive</a>
+            <a href="#">History</a>
         </nav>
     </div>
     <main>
         <div class="content">
             <div class="header">
-                <h1>Archive</h1>
+                <h1>History</h1>
                 <hr>
             </div>
             <div id="backlog"></div>
@@ -72,18 +72,16 @@
                     <label for="reporter">Reporter</label>
                     <input type="text" name="reporter" id="reporter" disabled>
 
-                    <label for="createDate">Create</label>
+                    <label for="createDate">Created</label>
                     <input type="text" name="createDate" id="date" disabled>
-<!-- 
-                    <label for="createDate">Update</label>
-                    <input type="text" name="createDate" id="update" disabled> -->
 
-                    <!-- <label for="id">ID</label> -->
+                    <label for="updated">Updated</label>
+                    <input type="text" name="updated" id="update" disabled>
+
                     <input type="text" name="id" id="id" disabled>
 
                     <div class="buttonBlock">
-                        <!-- <input type="button" value="Update" id="update" class="button" onclick="save()"> -->
-                        <input type="button" value="Delete" id="delete" class="button" onclick="deleteTaskFromLocalStorage()">
+                        <input type="button" value="Delete" id="delete" class="button" onclick="taskDelete()">
                         <input type="button" value="Back To Backlog" id="toWork" class="button" onclick="BackToBacklog()">
                     </div>
                 </form>

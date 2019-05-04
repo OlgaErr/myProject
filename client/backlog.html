@@ -18,7 +18,7 @@
           <a href="board.html">Board</a>
           <a href="#">Backlog</a>
           <a href="createTask.html">Create task</a>
-          <a href="archive.html">Archive</a>
+          <a href="history.html">History</a>
         </nav>
     </div>
     <main>
@@ -72,19 +72,19 @@
                     <label for="reporter">Reporter</label>
                     <input type="text" name="reporter" id="reporter" disabled>
 
-                    <label for="createDate">Create</label>
+                    <label for="createDate">Created</label>
                     <input type="text" name="createDate" id="date" disabled>
 
-                    <label for="createDate">Update</label>
-                    <input type="text" name="createDate" id="update" disabled>
+                    <label for="updated">Updated</label>
+                    <input type="text" name="updated" id="update" disabled>
 
                     <label for="id">ID</label>
                     <input type="text" name="id" id="id" disabled>
 
                     <div class="buttonBlock">
-                        <input type="button" value="Update" id="update" class="button" onclick="save()">
-                        <input type="button" value="Delete" id="delete" class="button" onclick="deleteTaskFromLocalStorage()">
+                        <input type="button" value="Delete" id="delete" class="button" onclick="taskDelete()">
                         <input type="button" value="To work" id="toWork" class="button" onclick="moveToWork()">
+                        <input type="button" value="Update" id="update" class="button" onclick="save()">
                     </div>
                 </form>
             </div>

@@ -19,46 +19,48 @@ function createTaskSection({
   const section = document.createElement('section');
   section.id = id;
 
+  const leftBlock = document.createElement('div');
   const typeValue = selectTaskType(type);
 
   const priorityValue = selectTaskPriority(priority);
+  leftBlock.appendChild(priorityValue);
 
   const myIdValue = document.createElement('a');
   myIdValue.dataset.id = id;
   myIdValue.classList = 'myId';
   myIdValue.onclick = openModalWindow;
   myIdValue.insertAdjacentText('afterBegin', myId || '...');
+  leftBlock.appendChild(myIdValue);
 
   const taskName = document.createElement('span');
   taskName.classList = 'taskName';
   taskName.insertAdjacentText('afterBegin', title);
+  leftBlock.appendChild(taskName);
 
-  const dateValue = document.createElement('span');
-  dateValue.classList = 'date';
-  dateValue.insertAdjacentText('afterBegin', date);
+  const rightBlock = document.createElement('div');
+  rightBlock.classList = 'rightBlock';
 
-  const estimateV = document.createElement('span');
-  estimateV.classList = 'estimate';
-  estimateV.insertAdjacentText('afterBegin', estimate);
-
-  section.appendChild(typeValue);
-  section.appendChild(priorityValue);
-  section.appendChild(myIdValue);
-  section.appendChild(taskName);
-  section.appendChild(dateValue);
-  section.appendChild(estimateV);
-
-  
   if (label) {
     const labelValue = document.createElement('span');
     labelValue.classList = 'label';
     labelValue.insertAdjacentText('afterBegin', label);
-    section.appendChild(labelValue);
+    rightBlock.appendChild(labelValue);
   }
-  
+
+  const dateValue = document.createElement('span');
+  dateValue.classList = 'date';
+  dateValue.insertAdjacentText('afterBegin', date);
+  rightBlock.appendChild(dateValue);
+
+  const estimateV = document.createElement('span');
+  estimateV.classList = 'estimate';
+  estimateV.insertAdjacentText('afterBegin', estimate);
+  rightBlock.appendChild(estimateV);
+
+  section.appendChild(leftBlock);
+  section.appendChild(rightBlock);
 
   return section;
-
 }
 
 function selectTaskType(type) {
@@ -131,9 +133,16 @@ function writeDataToTheFormFromLocalStorage(task) {
 
 function definitionIndexOfArray(id, allTasks) {
   for (let i = 0; i < allTasks.length; i++) {
-    if (allTasks[i].id == id) {
+    if (allTasks[i].id === id) {
       return i;
     }
+  }
+}
+
+function taskDelete() {
+  const result = confirm("Do you want to delete the task?");
+  if (result) {
+    deleteTaskFromLocalStorage();
   }
 }
 
@@ -141,7 +150,6 @@ function deleteTaskFromLocalStorage() {
   const id = document.getElementById('id').value;
   const taskSection = document.getElementById(id);
   taskSection.remove();
-
 
   const result = definitionIndexOfArray(id, allTasks);
   allTasks.splice(result, 1);
