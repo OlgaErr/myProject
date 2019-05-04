@@ -134,17 +134,33 @@ main {
   
 .modalForm {
     margin: 2em auto 1em;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+    display: grid;
+    grid-auto-flow: row;
+    border: 1px solid #000;
+    border-radius: 5px;
+    margin: 0 auto 30px;
+    width: 80%;
+    font-size: 16pt;
+}
+.modalForm label {
+    padding-left: 0.5em;
+}
+.modalForm div input {
+    padding-left: 0;
+    margin: 0.5em;
+}
+.modalForm input,
+.modalForm select,
+.modalForm textarea {
+    margin: 0.2em 0.8em;
+    padding-left: 0.5em; 
+}
 
 .modalContent {
     background-color: #f7f1e3;
     margin: auto;
     padding: 0;
     border: 5px solid #aaa69d;
-    width: 710px;
     height: auto;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     animation-name: animatetop;
@@ -189,6 +205,18 @@ main {
         .menuActive {
             left: 0;
         }
+        .modalForm {
+            grid-template-columns: [labels] auto [controls] 1fr;
+            grid-gap: 0.8em;
+            padding: 1.2em;
+        }
+        .modalForm div {
+            grid-column: controls;
+            grid-row: auto;
+        }
+        .modalContent {
+            width: 50%;
+        }
    
 
 }
@@ -204,7 +232,18 @@ main {
         .menuActive {
             left: 0;
         }
-       
+        .modalContent {
+            width: 50%;
+        }
+        .modalForm {
+            grid-template-columns: [labels] auto [controls] 1fr;
+            grid-gap: 0.8em;
+            padding: 1.2em;
+        }
+        .modalForm div {
+            grid-column: controls;
+            grid-row: auto;
+        }
     }
 
 @media only screen 
@@ -217,6 +256,9 @@ and (max-width : 768px) {
     }
     .menuActive {
         left: 0;
+    }
+    .modalContent {
+        width: 70%;
     }
 
 
@@ -240,5 +282,14 @@ and (max-width : 768px) {
         }
         .contentActive {
             transform: translateX(0%);
+        }
+        /* .modalForm {
+            grid-template-columns: 1fr;
+            padding: 0.5em;
+            width: 100%;
+            row-gap: 0.3em;
+        } */
+        .modalContent {
+            width: 90%;
         }
     }

@@ -124,7 +124,7 @@ function createTaskSection({
 function definitionIndexOfArray(id, tasks) {
   let result;
   for (let i = 0; i < tasks.length; i++) {
-    if (tasks[i].id === id) {
+    if (tasks[i].id == id) {
       result = i;
     }
   }
